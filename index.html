@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexora Agency — AI Agents That Sell, Support & Grow</title>
+  <meta name="description" content="Nexora Agency builds autonomous AI agents for outbound sales, inbound support, and social media — so your business runs 24/7 without hiring." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080c14;
+      --bg2: #0d1320;
+      --card: #111827;
+      --border: #1e2d45;
+      --accent: #4f8ef7;
+      --accent2: #7c5cfc;
+      --text: #f1f5f9;
+      --muted: #8896a8;
+      --radius: 14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 6%;
+      background: rgba(8, 12, 20, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-right { display: flex; align-items: center; gap: 32px; }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff !important;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-weight: 600 !important;
+    }
+    .nav-cta:hover { opacity: 0.9; }
+
+    /* LANG SWITCHER */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .lang-btn {
+      padding: 6px 13px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.2s, background 0.2s;
+      letter-spacing: 0.5px;
+    }
+
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+    }
+
+    .lang-btn:not(.active):hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 6% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(79,142,247,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(79,142,247,0.1);
+      border: 1px solid rgba(79,142,247,0.3);
+      color: var(--accent);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      max-width: 820px;
+      margin-bottom: 24px;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 44px;
+      font-weight: 400;
+    }
+
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); transform: translateY(-1px); }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 72px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+
+    /* SECTION BASE */
+    section { padding: 100px 6%; }
+    .section-label {
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin: 0 auto 64px;
+    }
+
+    /* SERVICES */
+    .services { background: var(--bg2); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .service-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(79,142,247,0.15), rgba(124,92,252,0.15));
+      border: 1px solid rgba(79,142,247,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 24px;
+    }
+
+    .service-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; }
+    .service-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 24px; }
+
+    .service-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .service-features li {
+      color: var(--muted);
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .service-features li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* HOW IT WORKS */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .step { text-align: center; padding: 32px 24px; }
+
+    .step-num {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+    .step p { color: var(--muted); font-size: 0.9rem; }
+
+    /* WHY NEXORA */
+    .why { background: var(--bg2); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .why-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 28px;
+    }
+
+    .why-item h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; margin-top: 12px; }
+    .why-item p { color: var(--muted); font-size: 0.9rem; }
+    .why-icon { font-size: 1.6rem; }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(79,142,247,0.08), rgba(124,92,252,0.08));
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cta-section h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p { color: var(--muted); font-size: 1.05rem; margin-bottom: 40px; }
+
+    /* CONTACT */
+    .contact-form {
+      max-width: 560px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    input, textarea, select {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+    textarea { resize: vertical; min-height: 120px; }
+    select option { background: var(--card); }
+
+    .submit-btn {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      border: none;
+      padding: 15px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 40px 6%;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-stats { gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Nexora Agency</div>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#services" data-i18n="nav.services">Services</a></li>
+        <li><a href="#how" data-i18n="nav.how">How It Works</a></li>
+        <li><a href="#why" data-i18n="nav.why">Why Us</a></li>
+        <li><a href="#contact" class="nav-cta" data-i18n="nav.cta">Get Started</a></li>
+      </ul>
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('de')">DE</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge"><span class="badge-dot"></span><span data-i18n="hero.badge">AI-Powered Business Automation</span></div>
+    <h1 data-i18n-html="hero.h1">Your Business Runs <span>24/7</span> — Even Without You</h1>
+    <p class="hero-sub" data-i18n="hero.sub">Nexora Agency builds autonomous AI agents that handle your sales calls, customer support, and social media — so you can focus on what matters.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary" data-i18n="hero.btn1">Book a Free Demo</a>
+      <a href="#services" class="btn-secondary" data-i18n="hero.btn2">See What We Build</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label" data-i18n="stat.label1">Always Active</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3x</div>
+        <div class="stat-label" data-i18n="stat.label2">More Leads Reached</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">-70%</div>
+        <div class="stat-label" data-i18n="stat.label3">Support Costs</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">10+</div>
+        <div class="stat-label" data-i18n="stat.label4">Languages Supported</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="section-label" data-i18n="services.label">What We Build</div>
+    <h2 class="section-title" data-i18n="services.title">Three Agents. Endless Results.</h2>
+    <p class="section-sub" data-i18n="services.sub">Each agent is custom-built for your business, speaks your customer's language, and works around the clock.</p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">📞</div>
+        <h3 data-i18n="outbound.title">Outbound Calling Agent</h3>
+        <p data-i18n="outbound.desc">An AI that autonomously calls your prospects, pitches your offer in their language, handles objections, and books meetings — all without a sales team.</p>
+        <ul class="service-features">
+          <li data-i18n="outbound.f1">Calls hundreds of leads per day</li>
+          <li data-i18n="outbound.f2">Natural-sounding AI voice</li>
+          <li data-i18n="outbound.f3">Adapts to any language automatically</li>
+          <li data-i18n="outbound.f4">Books appointments directly to your calendar</li>
+          <li data-i18n="outbound.f5">Full call recordings & analytics</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🎧</div>
+        <h3 data-i18n="inbound.title">Inbound Call Agent</h3>
+        <p data-i18n="inbound.desc">Never miss a customer call again. Our AI answers instantly, solves common requests, takes orders, and escalates complex cases to your team.</p>
+        <ul class="service-features">
+          <li data-i18n="inbound.f1">Picks up every call, every time</li>
+          <li data-i18n="inbound.f2">Understands customer intent instantly</li>
+          <li data-i18n="inbound.f3">Handles FAQs, bookings & complaints</li>
+          <li data-i18n="inbound.f4">Seamless human handoff when needed</li>
+          <li data-i18n="inbound.f5">Monthly subscription — no per-call fees</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🎬</div>
+        <h3 data-i18n="social.title">Social Media Agent</h3>
+        <p data-i18n="social.desc">AI-generated video content, captions, and posts — published automatically on your channels. Consistent presence, zero effort from your side.</p>
+        <ul class="service-features">
+          <li data-i18n="social.f1">AI video creation & editing</li>
+          <li data-i18n="social.f2">Auto-posting to all platforms</li>
+          <li data-i18n="social.f3">Brand-consistent visuals & voice</li>
+          <li data-i18n="social.f4">Content calendar managed for you</li>
+          <li data-i18n="social.f5">Performance tracking included</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="section-label" data-i18n="how.label">The Process</div>
+    <h2 class="section-title" data-i18n="how.title">Up and Running in Days</h2>
+    <p class="section-sub" data-i18n="how.sub">No long onboarding. No technical knowledge required. We handle everything.</p>
+
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3 data-i18n="step1.title">Free Strategy Call</h3>
+        <p data-i18n="step1.desc">We learn about your business, your goals, and which agent fits best.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3 data-i18n="step2.title">Custom Setup</h3>
+        <p data-i18n="step2.desc">We build and train your AI agent — tailored to your brand, products, and language.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3 data-i18n="step3.title">Go Live</h3>
+        <p data-i18n="step3.desc">Your agent is deployed and starts working. You get full access to a live dashboard.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3 data-i18n="step4.title">Ongoing Optimization</h3>
+        <p data-i18n="step4.desc">We monitor performance and continuously improve your agent every month.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="why" id="why">
+    <div class="section-label" data-i18n="why.label">Why Nexora</div>
+    <h2 class="section-title" data-i18n="why.title">Built Different</h2>
+    <p class="section-sub" data-i18n="why.sub">We don't sell software. We build agents that get results.</p>
+
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-icon">🌍</div>
+        <h3 data-i18n="why1.title">Multilingual by Default</h3>
+        <p data-i18n="why1.desc">Our agents detect the caller's language and switch automatically — English, German, Spanish, French, and more.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">⚡</div>
+        <h3 data-i18n="why2.title">Instant Response</h3>
+        <p data-i18n="why2.desc">Zero hold time. Zero waiting. Your customers and prospects get a response within seconds, every time.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">🔒</div>
+        <h3 data-i18n="why3.title">Fully Managed</h3>
+        <p data-i18n="why3.desc">We host, monitor, and maintain everything. You don't need to touch a single line of code.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">📊</div>
+        <h3 data-i18n="why4.title">Transparent Results</h3>
+        <p data-i18n="why4.desc">Real-time dashboards show every call, every conversation, and every conversion — no black boxes.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">🎯</div>
+        <h3 data-i18n="why5.title">Custom-Trained</h3>
+        <p data-i18n="why5.desc">Your agent knows your products, your tone, and your business — not a generic chatbot.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">💶</div>
+        <h3 data-i18n="why6.title">Pay for Results</h3>
+        <p data-i18n="why6.desc">Simple monthly pricing. No hidden fees. Cancel anytime. Your ROI is visible from day one.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2 data-i18n="cta.title">Ready to Automate Your Business?</h2>
+    <p data-i18n="cta.sub">Book a free 30-minute strategy call. No commitment, no sales pitch — just clarity.</p>
+    <a href="#contact" class="btn-primary" data-i18n="cta.btn">Book Your Free Call Now</a>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label" data-i18n="contact.label">Get In Touch</div>
+    <h2 class="section-title" data-i18n="contact.title">Let's Talk</h2>
+    <p class="section-sub" data-i18n="contact.sub">Tell us about your business and we'll get back to you within 24 hours.</p>
+
+    <form class="contact-form" action="https://formsubmit.co/maxigeist74@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New Nexora Agency Inquiry" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next" value="https://nexoragency.agency/thank-you" />
+      <div class="form-row">
+        <input type="text" name="name" data-i18n-placeholder="contact.name" placeholder="Your Name" required />
+        <input type="email" name="email" data-i18n-placeholder="contact.email" placeholder="Your Email" required />
+      </div>
+      <input type="text" name="company" data-i18n-placeholder="contact.company" placeholder="Company Name (optional)" />
+      <select name="service" id="service-select">
+        <option value="" disabled selected data-i18n="contact.service.placeholder">Which service are you interested in?</option>
+        <option value="outbound" data-i18n="contact.service.opt1">Outbound Calling Agent</option>
+        <option value="inbound" data-i18n="contact.service.opt2">Inbound Call Agent</option>
+        <option value="social" data-i18n="contact.service.opt3">Social Media Agent</option>
+        <option value="all" data-i18n="contact.service.opt4">All Three / Not Sure Yet</option>
+      </select>
+      <textarea name="message" data-i18n-placeholder="contact.message" placeholder="Tell us a bit about your business and what you're trying to achieve..."></textarea>
+      <button type="submit" class="submit-btn" data-i18n="contact.submit">Send Message →</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Nexora Agency · <a href="mailto:maxigeist74@gmail.com">maxigeist74@gmail.com</a> · nexoragency.agency</p>
+  </footer>
+
+  <script>
+    const translations = {
+      en: {
+        'nav.services': 'Services',
+        'nav.how': 'How It Works',
+        'nav.why': 'Why Us',
+        'nav.cta': 'Get Started',
+        'hero.badge': 'AI-Powered Business Automation',
+        'hero.h1': 'Your Business Runs <span>24/7</span> — Even Without You',
+        'hero.sub': 'Nexora Agency builds autonomous AI agents that handle your sales calls, customer support, and social media — so you can focus on what matters.',
+        'hero.btn1': 'Book a Free Demo',
+        'hero.btn2': 'See What We Build',
+        'stat.label1': 'Always Active',
+        'stat.label2': 'More Leads Reached',
+        'stat.label3': 'Support Costs',
+        'stat.label4': 'Languages Supported',
+        'services.label': 'What We Build',
+        'services.title': 'Three Agents. Endless Results.',
+        'services.sub': "Each agent is custom-built for your business, speaks your customer's language, and works around the clock.",
+        'outbound.title': 'Outbound Calling Agent',
+        'outbound.desc': 'An AI that autonomously calls your prospects, pitches your offer in their language, handles objections, and books meetings — all without a sales team.',
+        'outbound.f1': 'Calls hundreds of leads per day',
+        'outbound.f2': 'Natural-sounding AI voice',
+        'outbound.f3': 'Adapts to any language automatically',
+        'outbound.f4': 'Books appointments directly to your calendar',
+        'outbound.f5': 'Full call recordings & analytics',
+        'inbound.title': 'Inbound Call Agent',
+        'inbound.desc': 'Never miss a customer call again. Our AI answers instantly, solves common requests, takes orders, and escalates complex cases to your team.',
+        'inbound.f1': 'Picks up every call, every time',
+        'inbound.f2': 'Understands customer intent instantly',
+        'inbound.f3': 'Handles FAQs, bookings & complaints',
+        'inbound.f4': 'Seamless human handoff when needed',
+        'inbound.f5': 'Monthly subscription — no per-call fees',
+        'social.title': 'Social Media Agent',
+        'social.desc': 'AI-generated video content, captions, and posts — published automatically on your channels. Consistent presence, zero effort from your side.',
+        'social.f1': 'AI video creation & editing',
+        'social.f2': 'Auto-posting to all platforms',
+        'social.f3': 'Brand-consistent visuals & voice',
+        'social.f4': 'Content calendar managed for you',
+        'social.f5': 'Performance tracking included',
+        'how.label': 'The Process',
+        'how.title': 'Up and Running in Days',
+        'how.sub': 'No long onboarding. No technical knowledge required. We handle everything.',
+        'step1.title': 'Free Strategy Call',
+        'step1.desc': 'We learn about your business, your goals, and which agent fits best.',
+        'step2.title': 'Custom Setup',
+        'step2.desc': 'We build and train your AI agent — tailored to your brand, products, and language.',
+        'step3.title': 'Go Live',
+        'step3.desc': 'Your agent is deployed and starts working. You get full access to a live dashboard.',
+        'step4.title': 'Ongoing Optimization',
+        'step4.desc': 'We monitor performance and continuously improve your agent every month.',
+        'why.label': 'Why Nexora',
+        'why.title': 'Built Different',
+        'why.sub': "We don't sell software. We build agents that get results.",
+        'why1.title': 'Multilingual by Default',
+        'why1.desc': "Our agents detect the caller's language and switch automatically — English, German, Spanish, French, and more.",
+        'why2.title': 'Instant Response',
+        'why2.desc': 'Zero hold time. Zero waiting. Your customers and prospects get a response within seconds, every time.',
+        'why3.title': 'Fully Managed',
+        'why3.desc': "We host, monitor, and maintain everything. You don't need to touch a single line of code.",
+        'why4.title': 'Transparent Results',
+        'why4.desc': 'Real-time dashboards show every call, every conversation, and every conversion — no black boxes.',
+        'why5.title': 'Custom-Trained',
+        'why5.desc': 'Your agent knows your products, your tone, and your business — not a generic chatbot.',
+        'why6.title': 'Pay for Results',
+        'why6.desc': 'Simple monthly pricing. No hidden fees. Cancel anytime. Your ROI is visible from day one.',
+        'cta.title': 'Ready to Automate Your Business?',
+        'cta.sub': 'Book a free 30-minute strategy call. No commitment, no sales pitch — just clarity.',
+        'cta.btn': 'Book Your Free Call Now',
+        'contact.label': 'Get In Touch',
+        'contact.title': "Let's Talk",
+        'contact.sub': "Tell us about your business and we'll get back to you within 24 hours.",
+        'contact.name': 'Your Name',
+        'contact.email': 'Your Email',
+        'contact.company': 'Company Name (optional)',
+        'contact.service.placeholder': 'Which service are you interested in?',
+        'contact.service.opt1': 'Outbound Calling Agent',
+        'contact.service.opt2': 'Inbound Call Agent',
+        'contact.service.opt3': 'Social Media Agent',
+        'contact.service.opt4': 'All Three / Not Sure Yet',
+        'contact.message': "Tell us a bit about your business and what you're trying to achieve...",
+        'contact.submit': 'Send Message →',
+      },
+      de: {
+        'nav.services': 'Leistungen',
+        'nav.how': "So funktioniert's",
+        'nav.why': 'Warum wir',
+        'nav.cta': 'Jetzt starten',
+        'hero.badge': 'KI-gestützte Unternehmensautomatisierung',
+        'hero.h1': 'Dein Unternehmen läuft <span>24/7</span> — auch ohne dich',
+        'hero.sub': 'Nexora Agency entwickelt autonome KI-Agenten, die deine Verkaufsgespräche, Kundenbetreuung und Social Media übernehmen — damit du dich auf das Wesentliche konzentrieren kannst.',
+        'hero.btn1': 'Kostenlose Demo buchen',
+        'hero.btn2': 'Unsere Leistungen',
+        'stat.label1': 'Immer aktiv',
+        'stat.label2': 'Mehr Leads erreicht',
+        'stat.label3': 'Weniger Supportkosten',
+        'stat.label4': 'Sprachen unterstützt',
+        'services.label': 'Was wir entwickeln',
+        'services.title': 'Drei Agenten. Endlose Ergebnisse.',
+        'services.sub': 'Jeder Agent wird individuell für dein Unternehmen entwickelt, spricht die Sprache deiner Kunden und arbeitet rund um die Uhr.',
+        'outbound.title': 'Outbound-Calling-Agent',
+        'outbound.desc': 'Eine KI, die autonom deine Interessenten anruft, dein Angebot in deren Sprache präsentiert, Einwände behandelt und Termine bucht — ganz ohne Vertriebsteam.',
+        'outbound.f1': 'Ruft täglich hunderte Leads an',
+        'outbound.f2': 'Natürlich klingende KI-Stimme',
+        'outbound.f3': 'Passt sich automatisch jeder Sprache an',
+        'outbound.f4': 'Bucht Termine direkt in deinen Kalender',
+        'outbound.f5': 'Vollständige Gesprächsaufzeichnungen & Analysen',
+        'inbound.title': 'Inbound-Call-Agent',
+        'inbound.desc': 'Verpasse nie wieder einen Kundenanruf. Unsere KI antwortet sofort, löst häufige Anfragen, nimmt Bestellungen auf und leitet komplexe Fälle an dein Team weiter.',
+        'inbound.f1': 'Nimmt jeden Anruf entgegen, jederzeit',
+        'inbound.f2': 'Erkennt Kundenanliegen sofort',
+        'inbound.f3': 'Beantwortet FAQs, Buchungen & Beschwerden',
+        'inbound.f4': 'Nahtlose Übergabe an Mitarbeiter bei Bedarf',
+        'inbound.f5': 'Monatliches Abo — keine Kosten pro Anruf',
+        'social.title': 'Social-Media-Agent',
+        'social.desc': 'KI-generierte Videoinhalte, Captions und Posts — automatisch auf deinen Kanälen veröffentlicht. Konstante Präsenz, kein Aufwand auf deiner Seite.',
+        'social.f1': 'KI-Videoerstellung & -bearbeitung',
+        'social.f2': 'Automatisches Posten auf allen Plattformen',
+        'social.f3': 'Markenkonsistente Inhalte & Stimme',
+        'social.f4': 'Content-Kalender wird für dich verwaltet',
+        'social.f5': 'Performance-Tracking inklusive',
+        'how.label': 'Der Prozess',
+        'how.title': 'In wenigen Tagen startklar',
+        'how.sub': 'Kein langer Onboarding-Prozess. Keine technischen Kenntnisse erforderlich. Wir kümmern uns um alles.',
+        'step1.title': 'Kostenloses Strategiegespräch',
+        'step1.desc': 'Wir lernen dein Unternehmen, deine Ziele und den passenden Agenten kennen.',
+        'step2.title': 'Individueller Aufbau',
+        'step2.desc': 'Wir entwickeln und trainieren deinen KI-Agenten — angepasst an deine Marke, Produkte und Sprache.',
+        'step3.title': 'Live gehen',
+        'step3.desc': 'Dein Agent wird eingesetzt und beginnt zu arbeiten. Du erhältst vollen Zugang zu einem Live-Dashboard.',
+        'step4.title': 'Kontinuierliche Optimierung',
+        'step4.desc': 'Wir überwachen die Performance und verbessern deinen Agenten jeden Monat.',
+        'why.label': 'Warum Nexora',
+        'why.title': 'Anders als alle anderen',
+        'why.sub': 'Wir verkaufen keine Software. Wir bauen Agenten, die Ergebnisse liefern.',
+        'why1.title': 'Standardmäßig mehrsprachig',
+        'why1.desc': 'Unsere Agenten erkennen die Sprache des Anrufers und wechseln automatisch — Englisch, Deutsch, Spanisch, Französisch und mehr.',
+        'why2.title': 'Sofortige Reaktion',
+        'why2.desc': 'Keine Wartezeit. Null Verzögerung. Deine Kunden und Interessenten erhalten binnen Sekunden eine Antwort.',
+        'why3.title': 'Vollständig verwaltet',
+        'why3.desc': 'Wir hosten, überwachen und warten alles. Du musst keine einzige Zeile Code anfassen.',
+        'why4.title': 'Transparente Ergebnisse',
+        'why4.desc': 'Echtzeit-Dashboards zeigen jeden Anruf, jedes Gespräch und jede Conversion — keine Blackboxes.',
+        'why5.title': 'Individuell trainiert',
+        'why5.desc': 'Dein Agent kennt deine Produkte, deinen Ton und dein Unternehmen — kein generischer Chatbot.',
+        'why6.title': 'Bezahle für Ergebnisse',
+        'why6.desc': 'Einfache monatliche Preisgestaltung. Keine versteckten Gebühren. Jederzeit kündbar. Dein ROI ist ab dem ersten Tag sichtbar.',
+        'cta.title': 'Bereit, dein Unternehmen zu automatisieren?',
+        'cta.sub': 'Buche ein kostenloses 30-minütiges Strategiegespräch. Keine Verpflichtung, kein Verkaufsgespräch — nur Klarheit.',
+        'cta.btn': 'Jetzt kostenlosen Termin buchen',
+        'contact.label': 'Kontakt',
+        'contact.title': 'Lass uns reden',
+        'contact.sub': 'Erzähl uns von deinem Unternehmen und wir melden uns innerhalb von 24 Stunden.',
+        'contact.name': 'Dein Name',
+        'contact.email': 'Deine E-Mail',
+        'contact.company': 'Firmenname (optional)',
+        'contact.service.placeholder': 'Welche Leistung interessiert dich?',
+        'contact.service.opt1': 'Outbound-Calling-Agent',
+        'contact.service.opt2': 'Inbound-Call-Agent',
+        'contact.service.opt3': 'Social-Media-Agent',
+        'contact.service.opt4': 'Alle drei / Noch nicht sicher',
+        'contact.message': 'Erzähl uns ein bisschen über dein Unternehmen und was du erreichen möchtest...',
+        'contact.submit': 'Nachricht senden →',
+      }
+    };
+
+    let currentLang = 'en';
+
+    function setLang(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+
+      // Update all text elements
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+
+      // Update elements with inner HTML (e.g. h1 with <span>)
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+
+      // Update placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+
+      // Update lang buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+      });
+
+      document.documentElement.lang = lang;
+    }
+  </script>
+
+</body>
+</html>
